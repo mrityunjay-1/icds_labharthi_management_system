@@ -9,6 +9,10 @@ const reducer = (state: any, action: any) => {
 }
 
 const EditScreen = ({ route }: any) => {
+
+  // actual aadhaar_no as primary index for editing which is never going to be change while making modifications 
+  const [primary_key, set_primary_key] = useState(route.params.beneData.aadhaar);
+
   const { db_object }: any = useContext(ContextData);
   const [beneData, dispatch] = useReducer(reducer, route.params.beneData);
 
@@ -16,12 +20,12 @@ const EditScreen = ({ route }: any) => {
   function saveEditedData() {
     db_object.transaction((tx: any) => {
       tx.executeSql(
-        `UPDATE record SET name='${beneData.name}', parent_name='${beneData.parent_name}', aadhaar='${beneData.aadhaar}', contact='${beneData.contact}' WHERE aadhaar='${beneData.aadhaar}' `,
+        `UPDATE record SET name='${beneData.name}', parent_name='${beneData.parent_name}', aadhaar='${beneData.aadhaar}', contact='${beneData.contact}' WHERE aadhaar='${primary_key}' `,
         [],
         (arg1: any, response: any) => { alert("Data successfully updated !") }
       )
     },
-      (err) => console.log(err));
+      (err: any) => console.log(err));
   }
 
 
@@ -33,8 +37,15 @@ const EditScreen = ({ route }: any) => {
           let type = Object.keys(beneData)[index];
           return (
             <View style={{ margin: 10, marginHorizontal: 25 }}>
+
               <Text style={{ color: "grey" }}>{type} </Text>
-              <TextInput value={item} onChangeText={(value) => { dispatch({ type, payload: value }) }} style={styles.inputs} />
+
+              <TextInput
+                value={item}
+                onChangeText={(value) => { dispatch({ type, payload: value }) }}
+                style={styles.inputs}
+                maxLength={type == "aadhaar" ? 12 : type == "contact" ? 10 : 150}
+              />
             </View>
           );
         }}

@@ -62,7 +62,7 @@ const IndexScreen = ({ navigation }: any) => {
         renderItem={({ item, index }) => {
           let type = Object.keys(data)[index];
           return (
-            <View style={{ marginHorizontal: 20, marginVertical: 10 }}>
+            <View style={{ marginHorizontal: 27, marginVertical: 10 }}>
 
               <Text style={{ fontSize: 15, color: "grey", paddingBottom: 3 }} >{type} </Text>
 
@@ -74,6 +74,7 @@ const IndexScreen = ({ navigation }: any) => {
                 onChangeText={(value) => { dispatch({ type, payload: value }) }}
                 keyboardType={type == "aadhaar" || type == "contact" ? "number-pad" : "default"}
                 placeholder={`Enter ${type}`}
+                maxLength={type == "aadhaar" ? 12 : type == "contact" ? 10 : 150}
               />
             </View>
           );
@@ -101,7 +102,8 @@ const styles = StyleSheet.create({
     borderRadius: 2,
     padding: 5,
     fontSize: 16,
-    fontWeight: "bold"
+    fontWeight: "bold",
+    paddingHorizontal: 8
   },
   buttons: {
     fontSize: 16,

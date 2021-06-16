@@ -1,5 +1,5 @@
 import React, { useReducer, useContext, useState } from 'react';
-import { Text, View, TextInput, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text, View, TextInput, FlatList, StyleSheet, Pressable } from 'react-native';
 import ContextData from '../components/GlobalContext';
 
 let data = {
@@ -83,13 +83,14 @@ const IndexScreen = ({ navigation }: any) => {
 
       <View style={{ flexDirection: 'row', justifyContent: "space-around", marginBottom: 15 }}>
 
-        <TouchableOpacity onPress={() => { navigation.navigate("LabharthiScreen"); }}>
+        <Pressable onPress={() => { navigation.navigate("LabharthiScreen"); }}>
           <Text style={styles.buttons}> Show List </Text>
-        </TouchableOpacity>
+        </Pressable>
 
-        <TouchableOpacity onPress={() => { save_data(); }} >
+
+        <Pressable onPress={() => { save_data(); }} >
           <Text style={styles.buttons}> Save </Text>
-        </TouchableOpacity>
+        </Pressable>
       </View>
     </>
   );
@@ -102,18 +103,15 @@ const styles = StyleSheet.create({
     borderRadius: 2,
     padding: 5,
     fontSize: 16,
-    fontWeight: "bold",
     paddingHorizontal: 8
   },
   buttons: {
-    fontSize: 16,
-    fontWeight: "bold",
     backgroundColor: "indigo",
     paddingHorizontal: 25,
     paddingVertical: 10,
     borderRadius: 3,
     borderWidth: 1,
-    elevation: 10,
+    elevation: 5,
     color: "white"
   }
 });

@@ -1,8 +1,9 @@
 import React, { useState, useRef } from 'react';
 import { Modal, ActivityIndicator, Text, View, StyleSheet } from 'react-native';
 import { WebView } from 'react-native-webview';
+import { AntDesign } from '@expo/vector-icons';
 
-const WebViewScreen = ({ navigation, route }) => {
+const WebViewScreen = ({ navigation, route }: any) => {
 
   const [animatingAI, setAnimatingAI] = useState(true);
   let data123 = useRef(null);
@@ -29,6 +30,7 @@ const WebViewScreen = ({ navigation, route }) => {
       </Modal>
 
       <WebView
+        originWhitelist={['*']}
         style={{ marginTop: 30 }}
         ref={data123}
         source={{ uri: "http://164.100.251.19/AanganPublic/GetToken.aspx" }}
@@ -37,9 +39,10 @@ const WebViewScreen = ({ navigation, route }) => {
         injectedJavaScript={`document.getElementById("ctl00_MainContent_txtAadhar").value = ${route.params.bid}`}
       />
 
-      <View style={{ width: "100%", position: "absolute", bottom: 0, flexDirection: "row", justifyContent: "flex-end" }}>
-        <Text onPress={() => { data123.current.goBack() }} style={styles.buttons} > {"<"} </Text>
-        <Text onPress={() => { data123.current.goForward() }} style={styles.buttons} > {">"} </Text>
+      <View style={{ width: "100%", position: "absolute", bottom: 15, right: 15, flexDirection: "row", justifyContent: "flex-end", alignItems: "center" }}>
+        <Text onPress={() => { data123.current.goBack() }} > <AntDesign name="leftcircle" size={40} color="orange" /> </Text>
+        <Text>    </Text>
+        <Text onPress={() => { data123.current.goForward() }} > <AntDesign name="rightcircle" size={40} color="orange" /> </Text>
       </View>
 
     </>
@@ -54,15 +57,7 @@ const styles = StyleSheet.create({
     backgroundColor: "indigo",
     marginHorizontal: 15,
     elevation: 15
-  },
-  buttons: {
-    fontSize: 35,
-    fontWeight: "bold",
-    backgroundColor: "indigo",
-    color: "white",
-    margin: 10,
-    paddingHorizontal: 5,
-    borderRadius: 50
   }
 });
+
 export default WebViewScreen;

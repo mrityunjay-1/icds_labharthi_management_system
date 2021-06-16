@@ -8,6 +8,9 @@ import IndexScreen from './src/screens/IndexScreen';
 import LabharthiScreen from './src/screens/LabharthiScreen';
 import WebViewScreen from './src/screens/WebViewScreen';
 import EditScreen from './src/screens/EditScreen';
+import FeedbackScreen from './src/screens/FeedbackScreen';
+import GuideScreen from './src/screens/GuideScreen';
+
 
 // navigationContainers
 const Stack = createStackNavigator();
@@ -17,7 +20,7 @@ const Tabs = createBottomTabNavigator();
 import { ContextProviderFunction } from './src/components/GlobalContext';
 
 // icons
-import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 
 
@@ -31,12 +34,56 @@ const MainStack = () => {
   );
 }
 
+const FeedbackStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="FeedbackScreen" component={FeedbackScreen} options={{ headerTitle: "Feedback / Suggestion", headerTitleAlign: "center" }} />
+    </Stack.Navigator>
+  );
+}
+
+const GuideStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="Guide" component={GuideScreen} />
+    </Stack.Navigator>
+  );
+}
+
+
 const App = () => {
   return (
     <NavigationContainer>
-      <Tabs.Navigator>
-        <Tabs.Screen component={MainStack} name="MainTabsScreen" options={({ tabBarIcon: () => <Ionicons name="logo-buffer" size={24} color="black" /> })} />
-        <Tabs.Screen component={WebViewScreen} name="WebViewScreen" initialParams={{ bid: "" }} options={({ tabBarIcon: () => <MaterialCommunityIcons name="web" size={28} color="black" /> })} />
+      {/* really cool */}
+      <Tabs.Navigator
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName;
+
+            if (route.name === "Labharthi") {
+              iconName = "arrange-send-to-back";
+            } else if (route.name === "Find Token") {
+              iconName = "web";
+            } else if (route.name === "Guide") {
+              iconName = "television-guide";
+            } else {
+              iconName = "tournament";
+            }
+
+            return <MaterialCommunityIcons name={iconName} size={24} color={color} />
+          }
+        })}
+
+        tabBarOptions={{
+          activeTintColor: "indigo",
+          inactiveTintColor: "grey",
+        }}
+
+      >
+        <Tabs.Screen component={MainStack} name="Labharthi" />
+        <Tabs.Screen component={WebViewScreen} name="Find Token" initialParams={{ bid: "" }} />
+        <Tabs.Screen component={FeedbackStack} name="Feedback" />
+        <Tabs.Screen component={GuideStack} name="Guide" />
       </Tabs.Navigator>
     </NavigationContainer>
   );

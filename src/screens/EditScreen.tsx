@@ -45,6 +45,7 @@ const EditScreen = ({ route }: any) => {
                 onChangeText={(value) => { dispatch({ type, payload: value }) }}
                 style={styles.inputs}
                 maxLength={type == "aadhaar" ? 12 : type == "contact" ? 10 : 150}
+                autoCapitalize="words"
               />
             </View>
           );

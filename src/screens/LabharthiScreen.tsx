@@ -9,7 +9,7 @@ import GreetingScreen from '../components/GreetingScreen';
 const GetBenificieryCard = ({ bendata, delete_function, moveto_web_page, edit_function }: any) => {
   return (
     <View style={styles.benComp}>
-      <Text style={{ fontSize: 22, fontWeight: "bold" }}>{bendata.name} </Text>
+      <Text style={{ fontSize: 22 }}>{bendata.name} </Text>
       <Text style={{ color: "grey", fontSize: 12, fontWeight: "bold" }} >{bendata.parent_name} </Text>
       <Text
         onPress={() => {
@@ -20,10 +20,11 @@ const GetBenificieryCard = ({ bendata, delete_function, moveto_web_page, edit_fu
       </Text>
 
       <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
-        <Text style={{ color: "grey" }} onPress={() => Linking.openURL(`tel:${bendata.contact}`)} >No: {bendata.contact}</Text>
+        <Text style={{ color: "grey", fontSize: 12 }} onPress={() => Linking.openURL(`tel:${bendata.contact}`)} >No: {bendata.contact}</Text>
         <Text>
           <Text onPress={() => { delete_function(bendata.aadhaar) }}> <MaterialIcons name="delete" size={25} /> </Text>
-          <Text onPress={() => { edit_function(bendata) }} > <MaterialIcons name="edit" size={25} color="green" /> </Text>
+          <Text>   </Text>
+          <Text onPress={() => { edit_function(bendata) }} > <MaterialIcons name="edit" size={25} /> </Text>
         </Text>
       </View>
     </View >
@@ -36,6 +37,7 @@ const LabharthiScreen = ({ navigation }: any) => {
   const [labharthiData, setLabharthiData] = useState([]);
   const [searchResult, setSearchResult] = useState([]);
   const [searchBox, setSearchBox] = useState("");
+  const [labharthi_count, set_labharthi_count] = useState(0);
 
   function get_data() {
     db_object.transaction((tx: any) => {
@@ -45,6 +47,7 @@ const LabharthiScreen = ({ navigation }: any) => {
         (arg1: any, response: any) => {
           setLabharthiData(response.rows._array);
           setSearchResult(response.rows._array);
+          set_labharthi_count(response.rows.length);
         })
     });
   }
@@ -62,7 +65,7 @@ const LabharthiScreen = ({ navigation }: any) => {
   }
 
   function moveto_web_page(bid: string) {
-    navigation.navigate("WebViewScreen", { bid });
+    navigation.navigate("Find Token", { bid });
   }
 
   useEffect(() => {
@@ -76,12 +79,12 @@ const LabharthiScreen = ({ navigation }: any) => {
 
   return (
     <>
-      <GreetingScreen />
+      {/* <GreetingScreen /> */}
 
       {/* search Box Result */}
       <View>
         <TextInput
-          placeholder="search"
+          placeholder={`search among ${labharthi_count} results `}
           style={styles.searchBox}
           value={searchBox}
           onChangeText={(value) => {
@@ -153,7 +156,7 @@ const styles = StyleSheet.create({
   },
   aadhaar: {
     color: "indigo",
-    fontSize: 18,
+    fontSize: 16,
     marginVertical: 5,
     fontWeight: "bold"
   }

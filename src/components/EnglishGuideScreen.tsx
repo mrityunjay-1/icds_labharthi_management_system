@@ -5,6 +5,8 @@ const EnglishGuideScreen = () => {
   return (
     <>
       <Text style={{ fontSize: 25 }} > English Guide </Text>
+      <Text> coming soon... </Text>
+
     </>
   );
 };

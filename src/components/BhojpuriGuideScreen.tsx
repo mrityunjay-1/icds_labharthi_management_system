@@ -5,6 +5,8 @@ const BhojpuriGuideScreen = () => {
   return (
     <>
       <Text style={{ fontSize: 25 }} > Bhojpuri Guide </Text>
+      <Text> coming soon... </Text>
+
     </>
   );
 };

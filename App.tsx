@@ -45,7 +45,7 @@ const FeedbackStack = () => {
 const GuideStack = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Guide" component={GuideScreen} />
+      <Stack.Screen name="Guide" component={GuideScreen} options={() => ({ headerTitleAlign: "center", headerStyle: { elevation: 0 } })} />
     </Stack.Navigator>
   );
 }

@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Text, View, FlatList, TextInput, Linking, TouchableWithoutFeedback, StyleSheet, Alert } from 'react-native';
 import ContextData from '../components/GlobalContext';
-import { MaterialIcons, Feather } from '@expo/vector-icons';
+import { MaterialIcons, MaterialCommunityIcons, Feather } from '@expo/vector-icons';
+<MaterialCommunityIcons name="page-next-outline" size={24} color="black" />
 
 // GreetingScreen
 import GreetingScreen from '../components/GreetingScreen';
@@ -9,22 +10,26 @@ import GreetingScreen from '../components/GreetingScreen';
 const GetBenificieryCard = ({ bendata, delete_function, moveto_web_page, edit_function }: any) => {
   return (
     <View style={styles.benComp}>
-      <Text style={{ fontSize: 22 }}>{bendata.name} </Text>
+      <View style={styles.delete_edit}>
+        <Text style={{ width: '80%', fontSize: 19 }}>{bendata.name}</Text>
+        <Text
+          onPress={() => {
+            moveto_web_page(bendata.aadhaar)
+          }} style={styles.tokenIcon} >
+          Token <MaterialCommunityIcons name="page-next-outline" size={14} color="white" /> </Text>
+      </View>
+
       <Text style={{ color: "grey", fontSize: 12, fontWeight: "bold" }} >{bendata.parent_name} </Text>
-      <Text
-        onPress={() => {
-          moveto_web_page(bendata.aadhaar)
-        }}
-        style={styles.aadhaar}>
+      <Text style={styles.aadhaar}>
         {bendata.aadhaar.slice(0, 4)} {bendata.aadhaar.slice(4, 8)} {bendata.aadhaar.slice(8, 12)}
       </Text>
 
-      <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
+      <View style={styles.delete_edit}>
         <Text style={{ color: "grey", fontSize: 12 }} onPress={() => Linking.openURL(`tel:${bendata.contact}`)} >No: {bendata.contact}</Text>
         <Text>
-          <Text onPress={() => { delete_function(bendata.aadhaar) }}> <MaterialIcons name="delete" size={25} /> </Text>
+          <Text onPress={() => { delete_function(bendata.aadhaar) }}> <MaterialIcons name="delete" size={22} /> </Text>
           <Text>   </Text>
-          <Text onPress={() => { edit_function(bendata) }} > <MaterialIcons name="edit" size={25} /> </Text>
+          <Text onPress={() => { edit_function(bendata) }} > <MaterialIcons name="edit" size={22} /> </Text>
         </Text>
       </View>
     </View >
@@ -170,6 +175,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginVertical: 5,
     fontWeight: "bold"
+  },
+  tokenIcon: {
+    backgroundColor: 'indigo', color: 'white', padding: 5, borderRadius: 2
+  },
+  delete_edit: {
+    flexDirection: "row", justifyContent: "space-between", alignItems: "center"
   }
 });
 

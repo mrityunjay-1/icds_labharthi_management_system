@@ -29,7 +29,7 @@ const GuideScreen = () => {
       </View>
 
 
-      <View style={{ flexDirection: "row", justifyContent: "center", top: '50%' }}>
+      <View style={{ flexDirection: "column", alignItems: "center", top: '35%' }}>
         {
           compName === "HindiGuideScreen" ? <HindiGuideScreen /> : compName === "BhojpuriGuideScreen" ? <BhojpuriGuideScreen /> : <EnglishGuideScreen />
         }
